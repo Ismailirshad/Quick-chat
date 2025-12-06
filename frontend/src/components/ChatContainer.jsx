@@ -12,11 +12,9 @@ function ChatContainer() {
   const messageEndRef = useRef(null)
 
   if (!authUser || !selectedUser) {
-  return <div className="flex justify-center items-center h-full text-slate-400">Loading chat...</div>;
-}
+    return <div className="flex justify-center items-center h-full text-slate-400">Loading chat...</div>;
+  }
 
-
-  console.log('Auth User ID:', authUser);
   useEffect(() => {
     getMessagesByUserId(selectedUser._id)
     subscribeToMessages()
@@ -25,10 +23,11 @@ function ChatContainer() {
   }, [getMessagesByUserId, selectedUser, subscribeToMessages, unsubscribeFromMessages])
 
   useEffect(() => {
-    if(messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({behavior: "smooth"})
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [messages])
+  
   return (
     <>
       <ChatHeader />
@@ -41,8 +40,8 @@ function ChatContainer() {
                 className={`chat ${msg.senderId === authUser._id ? "chat-end" : "chat-start"}`}
               >
                 <div className={`chat-bubble relative ${msg.senderId?.toString() === authUser?._id?.toString()
-                    ? "bg-cyan-600 text-white"
-                    : "bg-slate-800 text-slate-200"
+                  ? "bg-cyan-600 text-white"
+                  : "bg-slate-800 text-slate-200"
                   }`}
                 >
 

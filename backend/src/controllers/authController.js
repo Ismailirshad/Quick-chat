@@ -6,7 +6,6 @@ import { ENV } from "../lib/env.js";
 import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
-    console.log("Signup controller called", req.body);
     const { fullName, email, password } = req.body;
 
     try {
@@ -42,13 +41,15 @@ export const signup = async (req, res) => {
             generateToken(savedUser._id, res)
 
             res.status(201).json({
-                _id: newUser._id,
-                fullName: newUser.fullName,
-                email: newUser.email,
-                profilePic: newUser.profilePic,
+                message: "User created successfully",
+                user: {
+                    _id: newUser._id,
+                    fullName: newUser.fullName,
+                    email: newUser.email,
+                    profilePic: newUser.profilePic,
+                }
             })
 
-            res.status(201).json({message: "User created successfully"  })
             try {
                 await sendWelcomeEmail(savedUser.email, savedUser.fullName, ENV.CLIENT_URL)
             } catch (error) {
@@ -76,11 +77,14 @@ export const login = async (req, res) => {
 
         generateToken(user._id, res)
 
-        res.status(201).json({
-            _id: user._id,
-            fullName: user.fullName,
-            email: user.email,
-            profilePic: user.profilePic,
+        res.status(200).json({
+            message: "Logged in successfully",
+            user: {
+                _id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                profilePic: user.profilePic,
+            }
         })
 
     } catch (error) {
@@ -101,11 +105,11 @@ export const updateProfile = async (req, res) => {
 
         const userId = req.user._id
 
-         const uploadResponse = await cloudinary.uploader.upload(profilePic);
+        const uploadResponse = await cloudinary.uploader.upload(profilePic);
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { profilePic : uploadResponse.secure_url },
+            { profilePic: uploadResponse.secure_url },
             { new: true }
         )
         res.status(200).json(updatedUser)

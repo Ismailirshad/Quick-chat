@@ -15,10 +15,10 @@ function ChatHeader() {
       }
 
         window.addEventListener("keydown", handleEscKey)
-
-        // return () => window.removeEventListener("keydown", handleEscKey)
+        return () => window.removeEventListener("keydown", handleEscKey)
     
   }, [setSelectedUser])
+
   return (
     <div
       className='flex justify-between itmes-center bg-slate-800/50 border-b border-slate-700/50
@@ -32,7 +32,6 @@ function ChatHeader() {
         </div>
 
         <div>
-          {/* {console.log("selcteduser is", selectedUser)} */}
           <h3 className="text-slate-200 font-medium">{selectedUser.fullName}</h3>
           <p className="text-slate-400 text-sm">{isOnline ? "online" : "offline"}</p>
         </div>

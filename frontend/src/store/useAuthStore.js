@@ -17,13 +17,8 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get("/auth/check", { withCredentials: true })
             set({ authUser: res.data })
-            console.log("auth user us", res.data);
-            // console.log("auth present is", authUser)
-            toast.success("Successfully checked authentication")
             get().connectSocket();
-
         } catch (error) {
-            toast.error("Failed to check authentication")
             console.log("Error in authCheck", error)
             set({ authUser: null })
         } finally {
@@ -36,15 +31,14 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await axiosInstance.post("/auth/signup", data, { withCredentials: true });
             // Update the store with the returned user
-            set({ authUser: res.data });
+            set({ authUser: res.data.user });
             toast.success("Acccount created successfully")
             get().connectSocket();
-
         } catch (error) {
+            console.log("Error in signup", error)
             toast.error("signup error", error)
         } finally {
             set({ isSignup: false })
-
         }
     },
 
@@ -53,7 +47,7 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
             // Update the store with the returned user
-            set({ authUser: res.data });
+            set({ authUser: res.data.user });
             toast.success("Logged in successfully")
             get().connectSocket();
         } catch (error) {
@@ -64,8 +58,6 @@ export const useAuthStore = create((set, get) => ({
     },
 
     logout: async () => {
-        // set({ isLogingOut: true })  
-
         try {
             const res = await axiosInstance.post("/auth/logout", {}, { withCredentials: true });
             set({ authUser: null })

@@ -7,7 +7,6 @@ const router = express.Router();
 router.use(arcjetProtection);
 router.get('/check', protectRoute, (req, res) => res.status(200).json(req.user))
 router.post('/signup',signup)
-
 router.post('/logout',logout)
 router.post('/login',login)
 router.put('/updateProfile', protectRoute, updateProfile)

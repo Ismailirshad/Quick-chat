@@ -15,8 +15,6 @@ export const useChatStore = create((set, get) => ({
     isMessagesLoading: false,
     isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled")) === true,
 
-    
-
     toggleSound: () => {
         localStorage.setItem("isSoundEnabled", !get().isSoundEnabled);
         set({ isSoundEnabled: !get().isSoundEnabled })
@@ -30,11 +28,9 @@ export const useChatStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get("/message/contacts", { withCredentials: true })
             set({ allContacts: res.data })
-            // toast.success("Successfully checked authentication")
         } catch (error) {
             toast.error(error.response.data.message)
             console.log("Error in authCheck", error)
-            // set({ allContacts: null })
         } finally {
             set({ isUsersLoading: false })
         }
@@ -45,10 +41,8 @@ export const useChatStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get("/message/chats")
             set({ chats: res.data })
-            // toast.success("Successfully checked authentication")
         } catch (error) {
             toast.error(error.response.data.message)
-            // set({ chats: null })
         } finally {
             set({ isMessagesLoading: false })
         }
@@ -86,15 +80,12 @@ export const useChatStore = create((set, get) => ({
 
         set({messages : [...messages, optimisticMessage]})
 
-
         try {
             const res = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
             set({ messages: messages.concat(res.data) })
         } catch (error) {
-            // remove optimistic failure 
             set({messages: messages })
             toast.error(error.response?.data?.message || "something went wrong")
-            // toast.error("msg uploade filed", error)
         }
     },
 

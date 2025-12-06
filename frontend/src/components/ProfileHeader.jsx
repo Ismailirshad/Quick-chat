@@ -7,7 +7,7 @@ const mouseClickSound = new Audio("/sounds/mouse-click.mp3")
 
 function ProfileHeader() {
   const { logout, authUser, updateProfile } = useAuthStore()
-  const [ selectedImg, setSelectedImg ] = useState(null)
+  const [selectedImg, setSelectedImg] = useState(null)
   const { isSoundEnabled, toggleSound } = useChatStore()
   const fileInputRef = useRef(null)
 
@@ -17,18 +17,20 @@ function ProfileHeader() {
 
     const reader = new FileReader()
     reader.readAsDataURL(file)
+
     reader.onloadend = async () => {
       const base64Image = reader.result
       setSelectedImg(base64Image)
       await updateProfile({ profilePic: base64Image })
     }
   }
+
   return (
     <div className='p-6 border-b border-slate-700/50'>
       <div className="flex itmes-center justify-between">
         <div className="flex items-center gap-3">
           <div className="avatar online">
-            <button className="size-14 rounded-full overflow-hidden realtive-group"
+            <button className="size-14 rounded-full overflow-hidden relative group"
               onClick={() => fileInputRef.current.click()}
             >
               <img src={selectedImg || authUser.profilePic || "/avatar.png"} alt="User image"
@@ -51,8 +53,7 @@ function ProfileHeader() {
 
           <div>
             <h3 className="text-slate-200 font-medium text-base max-w-[180px] truncate">
-              {console.log("auth user name is", authUser)}
-              {authUser.fullName} 
+              {authUser.fullName}
             </h3>
 
             <p className="text-sl-400 text-xs">Online</p>
@@ -61,9 +62,9 @@ function ProfileHeader() {
 
         <div className="flex gap-3">
           <div className="font-medium py-5">
-          <button onClick={logout} className="text-sm font-medium text-white p-1 bg-slate-600 rounded-md hover:bg-slate-500 transition-colors">
-            <LogOutIcon className="size-5" />
-          </button>
+            <button onClick={logout} className="text-sm font-medium text-white p-1 bg-slate-600 rounded-md hover:bg-slate-500 transition-colors">
+              <LogOutIcon className="size-5" />
+            </button>
           </div>
 
           <button className="text-slate-400 hover:text-slate-200 transition-colors"

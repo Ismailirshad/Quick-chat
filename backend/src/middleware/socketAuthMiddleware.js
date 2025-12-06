@@ -39,6 +39,6 @@ export const socketAuthMiddleware = async (socket, next) => {
     } catch (error) {
         console.log("Error in socketAuth middleware", error.message)
         next(new Error("Unauthorized - authentication failed"))
-        // res.status(500).json({ message: "Internal server error" })
+        res.status(500).json({ message: "Internal server error" })
     }
 }

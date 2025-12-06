@@ -17,17 +17,13 @@ function MessageInput() {
         if (!text.trim() && !imagePreview) return;
         if (isSoundEnabled) playRandomKeyStrokeSound()
 
-        // sendMessage({
-        //     text: text.trim(),
-        //     image: imagePreview,
-        // })
         const messageData = {
-            text: text.trim() || null,   // ✅ exact match with backend
-            image: imagePreview || null, // ✅ exact match with backend
+            text: text.trim() || null,
+            image: imagePreview || null,
         };
 
         try {
-            await sendMessage(messageData);  // ✅ await to ensure message updates before clear
+            await sendMessage(messageData);
         } catch (error) {
             console.error("Error sending message:", error);
         }

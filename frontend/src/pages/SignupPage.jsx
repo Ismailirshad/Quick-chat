@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import BorderAnimation from '../components/BorderAnimation'
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon, UserIcon } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
@@ -10,9 +10,9 @@ function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     signup(formData)
   }
+
   return (
     <div className='w-full flex items-center justify-center p-4 bg-slate-900'>
       <div className="relative w-full max-w-6xl md:h-[600px] h-[650px]">
