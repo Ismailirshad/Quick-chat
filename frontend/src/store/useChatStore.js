@@ -26,7 +26,7 @@ export const useChatStore = create((set, get) => ({
     getAllContacts: async () => {
         set({ isUsersLoading: true })
         try {
-            const res = await axiosInstance.get("/message/contacts", { withCredentials: true })
+            const res = await axiosInstance.get("message/contacts", { withCredentials: true })
             set({ allContacts: res.data })
         } catch (error) {
             toast.error(error.response.data.message)
@@ -39,7 +39,7 @@ export const useChatStore = create((set, get) => ({
     getAllChatParnters: async () => {
         set({ isMessagesLoading: true })
         try {
-            const res = await axiosInstance.get("/message/chats")
+            const res = await axiosInstance.get("message/chats")
             set({ chats: res.data })
         } catch (error) {
             toast.error(error.response.data.message)
@@ -51,7 +51,7 @@ export const useChatStore = create((set, get) => ({
     getMessagesByUserId: async (userId) => {
         set({ isMessagesLoadig: true })
         try {
-            const res = await axiosInstance.get(`/message/${userId}`)
+            const res = await axiosInstance.get(`message/${userId}`)
             set({ messages: res.data })
 
         } catch (error) {
@@ -81,7 +81,7 @@ export const useChatStore = create((set, get) => ({
         set({messages : [...messages, optimisticMessage]})
 
         try {
-            const res = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
+            const res = await axiosInstance.post(`message/send/${selectedUser._id}`, messageData);
             set({ messages: messages.concat(res.data) })
         } catch (error) {
             set({messages: messages })

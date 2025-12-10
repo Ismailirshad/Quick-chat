@@ -3,7 +3,7 @@ import { axiosInstance } from '../lib/axios'
 import toast from 'react-hot-toast'
 import { io } from "socket.io-client"
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : window.location.origin;
 
 export const useAuthStore = create((set, get) => ({
     authUser: null,
@@ -15,7 +15,7 @@ export const useAuthStore = create((set, get) => ({
 
     checkAuth: async () => {
         try {
-            const res = await axiosInstance.get("/auth/check", { withCredentials: true })
+            const res = await axiosInstance.get("auth/check", { withCredentials: true })
             set({ authUser: res.data })
             get().connectSocket();
         } catch (error) {
@@ -29,7 +29,7 @@ export const useAuthStore = create((set, get) => ({
     signup: async (data) => {
         set({ isSignup: true })
         try {
-            const res = await axiosInstance.post("/auth/signup", data, { withCredentials: true });
+            const res = await axiosInstance.post("auth/signup", data, { withCredentials: true });
             // Update the store with the returned user
             set({ authUser: res.data.user });
             toast.success("Acccount created successfully")
@@ -45,7 +45,7 @@ export const useAuthStore = create((set, get) => ({
     login: async (data) => {
         set({ isLogingIn: true })
         try {
-            const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
+            const res = await axiosInstance.post("auth/login", data, { withCredentials: true });
             // Update the store with the returned user
             set({ authUser: res.data.user });
             toast.success("Logged in successfully")
@@ -59,7 +59,7 @@ export const useAuthStore = create((set, get) => ({
 
     logout: async () => {
         try {
-            const res = await axiosInstance.post("/auth/logout", {}, { withCredentials: true });
+            const res = await axiosInstance.post("auth/logout", {}, { withCredentials: true });
             set({ authUser: null })
             toast.success("Logged out successfully")
             get().disconnectSocket()
@@ -70,7 +70,7 @@ export const useAuthStore = create((set, get) => ({
 
     updateProfile: async (data) => {
         try {
-            const res = await axiosInstance.put("/auth/updateProfile", data, { withCredentials: true });
+            const res = await axiosInstance.put("auth/updateProfile", data, { withCredentials: true });
             set({ authUser: res.data });
             toast.success("Profile updated successfully")
         } catch (error) {
