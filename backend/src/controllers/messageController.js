@@ -51,7 +51,7 @@ export const sendMessage = async (req, res) => {
         
         let imageUrl;
         if (image) {
-            const uploadResponse = await cloudinary.uploader.upload(image);
+            const uploadResponse = await cloudinary.uploader.upload(image, { folder: "quickchat/messages", });
             imageUrl = uploadResponse.secure_url
         }
 
