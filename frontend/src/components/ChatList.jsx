@@ -1,23 +1,23 @@
-import { useChatStore } from '../store/useChatStore'
+import { useChatStore } from '../store/useChatStore.js'
+import { useAuthStore } from '../store/useAuthStore.js'
 import UsersLoadingSkeleton from './UserLoadingSkeleton'
 import NoChatsFound from './NoChatsFound'
 import { useEffect } from 'react'
-import { useAuthStore } from '../store/useAuthStore'
 
 function ChatList() {
   const { getAllChatParnters, chats, isUsersLoading, setSelectedUser } = useChatStore()
   const { onlineUsers } = useAuthStore()
-
 
   useEffect(() => {
     getAllChatParnters()
   }, [getAllChatParnters])
 
   if (isUsersLoading) return <UsersLoadingSkeleton />
-  if (chats.length === 0) return <NoChatsFound />
+  if (!chats || !Array.isArray(chats) || chats.length === 0) return <NoChatsFound />
+  
   return (
     <>
-      {chats.map((chat) => (
+      {(chats || []).map((chat) => (
         <div key={chat._id}
           className='bg-cyan-500/50 p-4 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-clors'
           onClick={() => setSelectedUser(chat)}

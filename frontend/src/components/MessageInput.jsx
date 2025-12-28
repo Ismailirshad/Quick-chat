@@ -1,54 +1,59 @@
+import useKeyboardSound from '../hooks/useKeyboardSound.js'
+import { useChatStore } from '../store/useChatStore.js'
 import { useRef, useState } from 'react'
-import useKeyboardSound from '../hooks/useKeyboardSound'
-import { useChatStore } from '../store/useChatStore'
 import { ImageIcon, SendIcon, XIcon } from 'lucide-react'
 
 function MessageInput() {
     const { playRandomKeyStrokeSound } = useKeyboardSound()
+    const { sendMessage, isSoundEnabled, isSendingMessage } = useChatStore()
     const [text, setText] = useState("")
     const [imagePreview, setImagePreview] = useState(null)
-
+    const [base64Image, setBase64Image] = useState(null);
+    const [isImageLoading, setIsImageLoading] = useState(false);
     const fileInputRef = useRef(null)
 
-    const { sendMessage, isSoundEnabled } = useChatStore()
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
-        if (!text.trim() && !imagePreview) return;
+
+        if (!text.trim() && !base64Image) return;
         if (isSoundEnabled) playRandomKeyStrokeSound()
 
         const messageData = {
             text: text.trim() || null,
-            image: imagePreview || null,
+            image: base64Image || null,
         };
-
-        try {
-            await sendMessage(messageData);
-        } catch (error) {
-            console.error("Error sending message:", error);
-        }
-
+        
         setText("");
-        setImagePreview(null)
-        if (fileInputRef.current) fileInputRef.current.value = ""
+        setImagePreview(null);
+        setBase64Image(null);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        await sendMessage(messageData);
     }
 
     const handleImageChange = (e) => {
         const file = e.target.files[0]
-        if (!file.type.startsWith("image/")) {
-            toast.error("Please select an image file")
-            return
-        }
+        if (!file || !file.type.startsWith("image/")) return;
 
+        // For instant ui image uodate
+        const previewUrl = URL.createObjectURL(file);
+        setImagePreview(previewUrl)
+
+        setIsImageLoading(true);
+        // For sending image as base64
         const reader = new FileReader();
-        reader.onloadend = () => setImagePreview(reader.result)
-        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setBase64Image(reader.result);
+            setIsImageLoading(false);
+        }
+        reader.readAsDataURL(file);
     }
 
     const removeImage = () => {
+        if(isSendingMessage) return
         setImagePreview(null)
+        setBase64Image(null);
         if (fileInputRef.current) fileInputRef.current.value = ""
-
     }
 
     return (
@@ -60,10 +65,18 @@ function MessageInput() {
                         <img
                             src={imagePreview}
                             alt="Preview"
-                            className="w-20 h-20 object-cover rounded-lg border border-slate-700"
+                            className={`w-20 h-20 object-cover rounded-lg border border-slate-700 transition
+                                        ${(isSendingMessage || isImageLoading) ? "opacity-50 animate-pulse" : "opacity-100"}`}
                         />
+                        {/* Spinner overlay */}
+                        {(isSendingMessage || isImageLoading) && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+                                <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                            </div>
+                        )}
                         <button
                             onClick={removeImage}
+                            disabled={isSendingMessage}
                             className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-slate-200 hover:bg-slate-700"
                             type="button"
                         >
@@ -103,7 +116,7 @@ function MessageInput() {
                 </button>
                 <button
                     type="submit"
-                    disabled={!text.trim() && !imagePreview}
+                    disabled={isSendingMessage ||  isImageLoading || (!text.trim() && !imagePreview)}
                     className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <SendIcon className="w-5 h-5" />

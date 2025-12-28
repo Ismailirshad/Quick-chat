@@ -1,7 +1,7 @@
+import { useAuthStore } from '../store/useAuthStore.js'
 import  { useState } from 'react'
 import BorderAnimation from '../components/BorderAnimation'
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon, UserIcon } from 'lucide-react'
-import { useAuthStore } from '../store/useAuthStore'
 import { Link } from 'react-router'
 
 function SignupPage() {

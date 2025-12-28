@@ -1,9 +1,9 @@
+import { useAuthStore } from './store/useAuthStore.js'
 import { Navigate, Route, Routes } from 'react-router'
 import ChatPage from './pages/ChatPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import PageLoader from './components/PageLoader'
-import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
 
 function App() {

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-import ChatHeader from './ChatHeader'
 import { useChatStore } from '../store/useChatStore.js'
 import { useAuthStore } from '../store/useAuthStore.js'
+import ChatHeader from './ChatHeader'
 import MessagesLoadingSkeleton from './MessagesLoadingSkeleton.jsx'
 import NoChatHistoryPlaceholder from './NoChatHistoyPlaceholder.jsx'
 import MessageInput from './MessageInput.jsx'
+import { useEffect, useRef } from 'react'
 
 function ChatContainer() {
   const { selectedUser, getMessagesByUserId, messages, isMessagesLoading, subscribeToMessages, unsubscribeFromMessages } = useChatStore()
@@ -18,7 +18,7 @@ function ChatContainer() {
   useEffect(() => {
     getMessagesByUserId(selectedUser._id)
     subscribeToMessages()
-
+    
     return () => unsubscribeFromMessages()
   }, [getMessagesByUserId, selectedUser, subscribeToMessages, unsubscribeFromMessages])
 
@@ -27,7 +27,7 @@ function ChatContainer() {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [messages])
-  
+
   return (
     <>
       <ChatHeader />
@@ -44,10 +44,22 @@ function ChatContainer() {
                   : "bg-slate-800 text-slate-200"
                   }`}
                 >
-
                   {msg.image && (
-                    <img src={msg.image} alt='shared' className='rounded-lg h-48 object-cover' />
+                    <div className="relative">
+                      <img
+                        src={msg.image}
+                        alt="shared"
+                        className={`rounded-lg h-48 object-cover ${msg.status === "sending" ? "blur-sm opacity-70" : ""}`}
+                      />
+
+                      {msg.status === "sending" && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+                          <div className="w-6 h-6 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                        </div>
+                      )}
+                    </div>
                   )}
+
                   {msg.text && <p className='mt-2'>{msg.text}</p>}
                   <p className='text-xs mt-1 opacity-75 flex items-center gap-1'>
                     {new Date(msg.createdAt).toLocaleTimeString(undefined, {

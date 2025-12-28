@@ -1,6 +1,5 @@
-import React from 'react'
+import { useChatStore } from '../store/useChatStore.js'
 import BorderAnimatedContainer from '../components/BorderAnimation'
-import { useChatStore } from '../store/useChatStore'
 import ChatContainer from '../components/ChatContainer'
 import NoConversationContainer from '../components/NoConversationContainer'
 import ContactList from '../components/ContactList'

@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react'
 import { useAuthStore } from "../store/useAuthStore.js"
 import { useChatStore } from "../store/useChatStore.js"
+import { useRef, useState } from 'react'
 import { LogOutIcon, Volume2Icon, VolumeOffIcon } from "lucide-react"
 
 const mouseClickSound = new Audio("/sounds/mouse-click.mp3")
@@ -27,7 +27,7 @@ function ProfileHeader() {
 
   return (
     <div className='p-6 border-b border-slate-700/50'>
-      <div className="flex itmes-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="avatar online">
             <button className="size-14 rounded-full overflow-hidden relative group"

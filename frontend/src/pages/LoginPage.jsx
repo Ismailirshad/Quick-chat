@@ -1,14 +1,14 @@
+import { useAuthStore } from '../store/useAuthStore.js'
 import { useState } from 'react'
 import BorderAnimation from '../components/BorderAnimation'
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon } from 'lucide-react'
-import { useAuthStore } from '../store/useAuthStore'
 import { Link } from 'react-router'
 
 
 
 function LoginPage() {
     const [formData, setFormData] = useState({ email: "", password: "" })
-    const { login, isLogingIn } = useAuthStore()
+    const { login, isLoggingIn } = useAuthStore()
   
     const handleSubmit = (e) => {
       e.preventDefault()
@@ -58,8 +58,8 @@ function LoginPage() {
                     </div>
                   </div>
 
-                  <button className="auth-btn" disabled={isLogingIn}>
-                    {isLogingIn ? (
+                  <button className="auth-btn" disabled={isLoggingIn}>
+                    {isLoggingIn ? (
                       <LoaderIcon className='w-full h-5 animate-spin text-center' />
                     ) : (
                       "Login"

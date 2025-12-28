@@ -1,4 +1,4 @@
-import { useChatStore } from '../store/useChatStore'
+import { useChatStore } from '../store/useChatStore.js'
 
 function ActiveTabSwitch() {
   const { activeTab, setActiveTab } = useChatStore()
@@ -8,16 +8,18 @@ function ActiveTabSwitch() {
         onClick={() => setActiveTab("chats")}
         className={`tab ${activeTab === "chats" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"
           }`}
-      >Chats
+      >
+        Chats
       </button>
 
       <button
         onClick={() => setActiveTab("contacts")}
         className={`tab ${activeTab === "contacts" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"
           }`}
-      >Contacts
+      >
+        Contacts
       </button>
-
+      
     </div>
   )
 }
