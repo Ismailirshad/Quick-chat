@@ -18,7 +18,7 @@ function ChatContainer() {
   useEffect(() => {
     getMessagesByUserId(selectedUser._id)
     subscribeToMessages()
-    
+
     return () => unsubscribeFromMessages()
   }, [getMessagesByUserId, selectedUser, subscribeToMessages, unsubscribeFromMessages])
 

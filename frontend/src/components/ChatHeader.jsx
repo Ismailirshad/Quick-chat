@@ -8,7 +8,6 @@ function ChatHeader() {
   const { onlineUsers } = useAuthStore()
   const isOnline = onlineUsers.includes(selectedUser._id);
 
-
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === "Escape") setSelectedUser(null)
@@ -34,8 +33,9 @@ function ChatHeader() {
         </div>
       </div>
 
-      <button onClick={() => setSelectedUser(null)}>
-        <XIcon className='w-5 h-5 text-slate-400 hover:text-slate-200 transition-colors
+      <button className="xs:pr-0 pr-10  rounded-full  transition-colors"
+        onClick={() => setSelectedUser(null)}>
+        <XIcon className='w-5 h-5  text-slate-400 hover:text-slate-50 transition-colors
          cursor-pointer' />
       </button>
 

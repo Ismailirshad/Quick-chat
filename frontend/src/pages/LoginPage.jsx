@@ -7,15 +7,15 @@ import { Link } from 'react-router'
 
 
 function LoginPage() {
-    const [formData, setFormData] = useState({ email: "", password: "" })
-    const { login, isLoggingIn } = useAuthStore()
-  
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      login(formData)
-    }
-    
-   return (
+  const [formData, setFormData] = useState({ email: "", password: "" })
+  const { login, isLoggingIn } = useAuthStore()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    login(formData)
+  }
+
+  return (
     <div className='w-full flex items-center justify-center p-4 bg-slate-900'>
       <div className="relative w-full max-w-6xl md:h-[600px] h-[650px]">
         <BorderAnimation >
@@ -69,7 +69,7 @@ function LoginPage() {
 
                 <div className="mt-6 text-center">
                   <Link to='/signup' className='auth-link'>
-                   Dont have an acoount? SignUp
+                    Dont have an acoount? SignUp
                   </Link>
                 </div>
               </div>
@@ -91,7 +91,7 @@ function LoginPage() {
             </div>
           </div>
         </BorderAnimation >
-      </div>  
+      </div>
     </div>
   )
 
