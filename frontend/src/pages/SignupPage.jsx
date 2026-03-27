@@ -1,76 +1,116 @@
+<<<<<<< HEAD
 import { useAuthStore } from '../store/useAuthStore.js'
+=======
+<<<<<<< HEAD
+>>>>>>> b253593 (Added Password Regular Expression)
 import  { useState } from 'react'
 import BorderAnimation from '../components/BorderAnimation'
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon, UserIcon } from 'lucide-react'
 import { Link } from 'react-router'
+=======
+import { useAuthStore } from "../store/useAuthStore.js";
+import { useState } from "react";
+import BorderAnimation from "../components/BorderAnimation";
+import {
+  LoaderIcon,
+  LockIcon,
+  MailIcon,
+  MessageCircleIcon,
+  UserIcon,
+} from "lucide-react";
+import { Link } from "react-router";
+>>>>>>> a125393 (Added Password Regular Expression)
 
 function SignupPage() {
-  const [formData, setFormData] = useState({ fullName: "", email: "", password: "" })
-  const { signup, isSigningUp } = useAuthStore()
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+  const { signup, isSigningUp } = useAuthStore();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    signup(formData)
-  }
+    e.preventDefault();
+    signup(formData);
+  };
 
   return (
-    <div className='w-full flex items-center justify-center p-4 bg-slate-900'>
+    <div className="w-full flex items-center justify-center p-4 bg-slate-900">
       <div className="relative w-full max-w-6xl md:h-[600px] h-[650px]">
         <BorderAnimation>
           <div className="w-full flex flex-col md:flex-row">
             {/* from column -left  */}
-            <div className='md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30'>
-              <div className='w-full max-w-md'>
-                <div className='text-center mb-8'>
-                  <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-4" />
-                  <h2 className="text-2xl font-bold text-slate-200 mb-2">Create Account</h2>
+            <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30">
+              <div className="w-full max-w-md">
+                <div className="text-center">
+                  <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-1" />
+                  <h2 className="text-2xl font-bold text-slate-200 mb-2">
+                    Create Account
+                  </h2>
                   <p className="text-slate-400">Signup for a new account</p>
                 </div>
 
                 {/* form  */}
-                <form onSubmit={handleSubmit} className='space-y-6'>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className='auth-input-label'>Full name </label>
+                    <label className="auth-input-label">Full name </label>
                     <div className="relative">
-                      <UserIcon className='auth-input-icon' />
+                      <UserIcon className="auth-input-icon" />
 
-                      <input type="text" value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className='input'
-                        placeholder='Enter fullName'
+                      <input
+                        type="text"
+                        value={formData.fullName}
+                        onChange={(e) =>
+                          setFormData({ ...formData, fullName: e.target.value })
+                        }
+                        className="input text-xs"
+                        placeholder="Enter fullName"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className='auth-input-label'>Email </label>
+                    <label className="auth-input-label">Email </label>
                     <div className="relative">
-                      <MailIcon className='auth-input-icon' />
+                      <MailIcon className="auth-input-icon" />
 
-                      <input type="email" value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className='input'
-                        placeholder='Enter the email'
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
+                        className="input text-xs"
+                        placeholder="Enter the email"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className='auth-input-label'> Password </label>
+                    <label className="auth-input-label"> Password </label>
                     <div className="relative">
-                      <LockIcon className='auth-input-icon' />
+                      <LockIcon className="auth-input-icon" />
 
-                      <input type="password" value={formData.password}
-                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className='input'
-                        placeholder='Enter the password'
+                      <input
+                        type="password"
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({ ...formData, password: e.target.value })
+                        }
+                        className="input text-xs"
+                        placeholder="Enter 6 digit password"
                       />
                     </div>
+                    <p className="text-xs text-gray-400 mt-1 leading-5">
+                      Password must include:
+                      <br />• 1 uppercase • 1 lowercase • 1 number
+                      • 1 special character
+                    </p>
                   </div>
 
                   <button className="auth-btn" disabled={isSigningUp}>
                     {isSigningUp ? (
-                      <LoaderIcon className='w-full h-5 animate-spin text-center' />
+                      <LoaderIcon className="w-full h-5 animate-spin text-center" />
                     ) : (
                       "Create Account"
                     )}
@@ -78,18 +118,24 @@ function SignupPage() {
                 </form>
 
                 <div className="mt-6 text-center">
-                  <Link to='/login' className='auth-link'>
+                  <Link to="/login" className="auth-link">
                     Already have an account? Login
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">
+            <div className="hidden md:w-1/2 md:flex items-center justify-center p-12 bg-gradient-to-bl from-slate-800/20 to-transparent">
               <div>
-                <img src="/signup.png" alt='"peopele suing mobile devices' className='w-full h-auto object-contain' />
+                <img
+                  src="/signup.png"
+                  alt='"peopele suing mobile devices'
+                  className="w-full h-auto object-contain"
+                />
                 <div className="mt-6 text-center">
-                  <h3 className="text-xl font-medium text-cyan-400">Start your Journey Today</h3>
+                  <h3 className="text-xl font-medium text-cyan-400">
+                    Start your Journey Today
+                  </h3>
 
                   <div className="mt-4 flex justify-center gap-4">
                     <span className="auth-badge">Free</span>
@@ -100,11 +146,10 @@ function SignupPage() {
               </div>
             </div>
           </div>
-        </BorderAnimation >
+        </BorderAnimation>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default SignupPage
+export default SignupPage;

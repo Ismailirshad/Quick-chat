@@ -39,7 +39,7 @@ function LoginPage() {
 
                       <input type="email" value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className='input'
+                        className='input text-xs'
                         placeholder='Enter the email'
                       />
                     </div>
@@ -52,8 +52,8 @@ function LoginPage() {
 
                       <input type="password" value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className='input'
-                        placeholder='Enter the password'
+                        className='input text-xs'
+                        placeholder='Enter 6 digit password'
                       />
                     </div>
                   </div>
@@ -75,7 +75,7 @@ function LoginPage() {
               </div>
             </div>
 
-            <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">
+            <div className="hidden md:w-1/2 md:flex items-center justify-center p-12 bg-gradient-to-bl from-slate-800/20 to-transparent">
               <div>
                 <img src="/signup.png" alt='"peopele suing mobile devices' className='w-full h-auto object-contain' />
                 <div className="mt-6 text-center">
