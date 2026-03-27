@@ -1,25 +1,8 @@
-<<<<<<< HEAD
-import { useAuthStore } from '../store/useAuthStore.js'
-=======
-<<<<<<< HEAD
->>>>>>> b253593 (Added Password Regular Expression)
 import  { useState } from 'react'
 import BorderAnimation from '../components/BorderAnimation'
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon, UserIcon } from 'lucide-react'
 import { Link } from 'react-router'
-=======
 import { useAuthStore } from "../store/useAuthStore.js";
-import { useState } from "react";
-import BorderAnimation from "../components/BorderAnimation";
-import {
-  LoaderIcon,
-  LockIcon,
-  MailIcon,
-  MessageCircleIcon,
-  UserIcon,
-} from "lucide-react";
-import { Link } from "react-router";
->>>>>>> a125393 (Added Password Regular Expression)
 
 function SignupPage() {
   const [formData, setFormData] = useState({
