@@ -25,6 +25,11 @@ app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/message", messageRoute);
 
+// For auto req to avoid server sleep in render deployment
+app.get("/api/health", (req, res) => {
+  res.send("OK");
+});
+
 // make ready for deployment
 // if (ENV.NODE_ENV === "production") {
 //   app.use(express.static(path.join(__dirname, "../frontend/dist")));
