@@ -10,7 +10,7 @@ import { app, server } from "./lib/socket.js";
 
 const __dirname = path.resolve();
 
-const PORT = ENV.PORT;
+const PORT = ENV.PORT || 3000;
 const MONGODB_URI = ENV.MONGODB_URI;
 
 app.use(express.json({ limit: "5mb" }));
@@ -55,12 +55,8 @@ const connectDB = async () => {
 
 connectDB();
 
-// For local development
-if (ENV.NODE_ENV !== "production") {
-  server.listen(PORT, () => {
-    console.log("Server started on port", PORT);
-  });
-}
 
-// For Vercel deployment
-export default app;
+server.listen(PORT, () => {
+  console.log("Server running on port", PORT);
+});
+
