@@ -15,6 +15,7 @@ export const generateToken =(userId, res) =>{
     httpOnly:true,
     sameSite: ENV.NODE_ENV === "production" ? "none" : "lax",
     secure: ENV.NODE_ENV === "development" ? false: true,
+    domain:".ismailirshad.in",
   })
 
   return token;
